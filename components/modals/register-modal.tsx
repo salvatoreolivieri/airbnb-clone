@@ -2,7 +2,7 @@
 
 import axios from "axios"
 import { AiFillGithub } from "react-icons/ai"
-// import { signIn } from "next-auth/react"
+import { signIn } from "next-auth/react"
 import { FcGoogle } from "react-icons/fc"
 import { useCallback, useState } from "react"
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form"
@@ -47,7 +47,7 @@ export const RegisterModal = () => {
         closeRegisterModal()
         openLoginModal()
       })
-      .catch((error) => addNotificationError(NOTIFICATION_TYPE))
+      .catch(() => addNotificationError(NOTIFICATION_TYPE))
       .finally(() => setIsLoading(false))
   }
 
@@ -99,18 +99,22 @@ export const RegisterModal = () => {
         outline
         label="Continue with Google"
         icon={FcGoogle}
-        onClick={() => {
-          addNotificationSuccess(NOTIFICATION_TYPE)
-        }}
+        onClick={() =>
+          signIn("google")
+            .then(() => addNotificationSuccess(NOTIFICATION_TYPE))
+            .catch(() => addNotificationError(NOTIFICATION_TYPE))
+        }
       />
 
       <Button
         outline
         label="Continue with Github"
         icon={AiFillGithub}
-        onClick={() => {
-          addNotificationError(NOTIFICATION_TYPE)
-        }}
+        onClick={() =>
+          signIn("github")
+            .then(() => addNotificationSuccess(NOTIFICATION_TYPE))
+            .catch(() => addNotificationError(NOTIFICATION_TYPE))
+        }
       />
 
       <div

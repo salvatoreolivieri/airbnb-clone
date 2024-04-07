@@ -1,6 +1,6 @@
 import { toast } from "sonner"
 
-type NotificationType = "registered"
+type NotificationType = "registered" | "login" | "logout"
 
 type NotificationMessages = {
   [key in NotificationType]: {
@@ -13,6 +13,14 @@ const notificationMessages: NotificationMessages = {
   registered: {
     success: "Successfully registered",
     error: "Failed to registered",
+  },
+  login: {
+    success: "Successfully loggedIn",
+    error: "Failed to login",
+  },
+  logout: {
+    success: "Successfully logged out",
+    error: "Failed to logout",
   },
 }
 

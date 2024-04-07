@@ -2,11 +2,20 @@
 
 import { useCallback, useState } from "react"
 import { AiOutlineMenu } from "react-icons/ai"
-// import { signOut } from "next-auth/react";
+import { signOut } from "next-auth/react"
 import { useRouter } from "next/navigation"
-import { Avatar } from "../avatar"
+
 import { useRegisterModal } from "@/store/use-register-modal"
 import { useLoginModal } from "@/store/use-login-modal"
+import { useRentModal } from "@/store/use-rent-modal"
+import { useNotifications } from "@/hooks/use-notifications"
+
+import { Avatar } from "../avatar"
+import { SafeUser } from "@/types"
+
+interface UserMenuProps {
+  currentUser?: SafeUser | null
+}
 
 interface MenuItemProps {
   onClick?: () => void
@@ -30,10 +39,12 @@ const MenuItem = ({ onClick, label }: MenuItemProps) => {
   )
 }
 
-export const UserMenu = () => {
+export const UserMenu = ({ currentUser }: UserMenuProps) => {
   const router = useRouter()
   const { onOpen: openRegisterModal } = useRegisterModal()
   const { onOpen: openLoginModal } = useLoginModal()
+  const { onOpen: onOpenRentModal } = useRentModal()
+  const { addNotificationSuccess, addNotificationError } = useNotifications()
 
   const [isOpen, setIsOpen] = useState(false)
 
@@ -54,7 +65,7 @@ export const UserMenu = () => {
             <AiOutlineMenu />
 
             <div className="hidden md:block">
-              <Avatar src="/images/placeholder.jpg" />
+              <Avatar src={currentUser?.image} />
             </div>
           </div>
         </div>
@@ -76,7 +87,7 @@ export const UserMenu = () => {
           "
           >
             <div className="flex flex-col cursor-pointer">
-              {/* {currentUser ? (
+              {currentUser ? (
                 <>
                   <MenuItem
                     label="My trips"
@@ -96,17 +107,24 @@ export const UserMenu = () => {
                   />
                   <MenuItem
                     label="Airbnb your home"
-                    onClick={rentModal.onOpen}
+                    onClick={onOpenRentModal}
                   />
                   <hr />
-                  <MenuItem label="Logout" onClick={() => signOut()} />
+                  <MenuItem
+                    label="Logout"
+                    onClick={() =>
+                      signOut()
+                        .then(() => addNotificationSuccess("logout"))
+                        .catch(() => addNotificationError("logout"))
+                    }
+                  />
                 </>
               ) : (
-                <> */}
-              <MenuItem label="Login" onClick={openLoginModal} />
-              <MenuItem label="Sign up" onClick={openRegisterModal} />
-              {/* </>
-              )} */}
+                <>
+                  <MenuItem label="Login" onClick={openLoginModal} />
+                  <MenuItem label="Sign up" onClick={openRegisterModal} />
+                </>
+              )}
             </div>
           </div>
         )}

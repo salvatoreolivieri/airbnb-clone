@@ -101,8 +101,8 @@ export const RegisterModal = () => {
         icon={FcGoogle}
         onClick={() =>
           signIn("google")
-            .then(() => addNotificationSuccess(NOTIFICATION_TYPE))
             .catch(() => addNotificationError(NOTIFICATION_TYPE))
+            .finally(() => addNotificationSuccess(NOTIFICATION_TYPE))
         }
       />
 
@@ -112,8 +112,8 @@ export const RegisterModal = () => {
         icon={AiFillGithub}
         onClick={() =>
           signIn("github")
-            .then(() => addNotificationSuccess(NOTIFICATION_TYPE))
             .catch(() => addNotificationError(NOTIFICATION_TYPE))
+            .finally(() => addNotificationSuccess(NOTIFICATION_TYPE))
         }
       />
 

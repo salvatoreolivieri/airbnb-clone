@@ -5,8 +5,7 @@ import { AiFillGithub } from "react-icons/ai"
 // import { signIn } from "next-auth/react"
 import { FcGoogle } from "react-icons/fc"
 import { useCallback, useState } from "react"
-// import { toast } from "react-hot-toast"
-import { type FieldValues, type SubmitHandler, useForm } from "react-hook-form"
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form"
 
 import { Modal } from "./modal"
 import { useRegisterModal } from "@/store/use-register-modal"
@@ -41,10 +40,12 @@ export const RegisterModal = () => {
     setIsLoading(true)
 
     axios
-      .post("api/register", data)
+      .post("/api/register", data)
       .then(() => {
         addNotificationSuccess(NOTIFICATION_TYPE)
+
         closeRegisterModal()
+        openLoginModal()
       })
       .catch((error) => addNotificationError(NOTIFICATION_TYPE))
       .finally(() => setIsLoading(false))
@@ -145,7 +146,7 @@ export const RegisterModal = () => {
         title="Register"
         actionLabel="Continue"
         onClose={closeRegisterModal}
-        onSubmit={() => handleSubmit(onSubmit)}
+        onSubmit={handleSubmit(onSubmit)}
         body={bodyContent}
         footer={footerContent}
       />

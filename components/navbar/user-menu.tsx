@@ -5,6 +5,8 @@ import { AiOutlineMenu } from "react-icons/ai"
 // import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation"
 import { Avatar } from "../avatar"
+import { useRegisterModal } from "@/store/use-register-modal"
+import { useLoginModal } from "@/store/use-login-modal"
 
 interface MenuItemProps {
   onClick?: () => void
@@ -30,6 +32,8 @@ const MenuItem = ({ onClick, label }: MenuItemProps) => {
 
 export const UserMenu = () => {
   const router = useRouter()
+  const { onOpen: openRegisterModal } = useRegisterModal()
+  const { onOpen: openLoginModal } = useLoginModal()
 
   const [isOpen, setIsOpen] = useState(false)
 
@@ -99,15 +103,8 @@ export const UserMenu = () => {
                 </>
               ) : (
                 <> */}
-              <MenuItem
-                label="Login"
-                // onClick={loginModal.onOpen}
-              />
-
-              <MenuItem
-                label="Sign up"
-                // onClick={registerModal.onOpen}
-              />
+              <MenuItem label="Login" onClick={openLoginModal} />
+              <MenuItem label="Sign up" onClick={openRegisterModal} />
               {/* </>
               )} */}
             </div>

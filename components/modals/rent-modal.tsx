@@ -13,6 +13,7 @@ import { Heading } from "../heading"
 import { Input } from "../inputs/input"
 import { CategoryInput } from "../inputs/category-input"
 import { CountrySelect } from "../inputs/country-select"
+import { Counter } from "../inputs/counter"
 
 enum STEPS {
   CATEGORY = 0,
@@ -170,8 +171,8 @@ export const RentModal = () => {
           subtitle="What amenitis do you have?"
         />
 
-        {/* <Counter
-          onChange={(value) => setCustomValue('guestCount', value)}
+        <Counter
+          onChange={(value) => setCustomValue("guestCount", value)}
           value={guestCount}
           title="Guests"
           subtitle="How many guests do you allow?"
@@ -180,7 +181,7 @@ export const RentModal = () => {
         <hr />
 
         <Counter
-          onChange={(value) => setCustomValue('roomCount', value)}
+          onChange={(value) => setCustomValue("roomCount", value)}
           value={roomCount}
           title="Rooms"
           subtitle="How many rooms do you have?"
@@ -189,11 +190,11 @@ export const RentModal = () => {
         <hr />
 
         <Counter
-          onChange={(value) => setCustomValue('bathroomCount', value)}
+          onChange={(value) => setCustomValue("bathroomCount", value)}
           value={bathroomCount}
           title="Bathrooms"
           subtitle="How many bathrooms do you have?"
-        /> */}
+        />
       </div>
     )
   }

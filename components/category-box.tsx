@@ -1,6 +1,6 @@
 "use client"
 
-// import qs from "query-string"
+import qs from "query-string"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useCallback } from "react"
 import { IconType } from "react-icons"
@@ -22,9 +22,9 @@ export const CategoryBox = ({
   const handleClick = useCallback(() => {
     let currentQuery = {}
 
-    // if (params) {
-    //   currentQuery = qs.parse(params.toString())
-    // }
+    if (params) {
+      currentQuery = qs.parse(params.toString())
+    }
 
     const updatedQuery: any = {
       ...currentQuery,
@@ -35,15 +35,15 @@ export const CategoryBox = ({
       delete updatedQuery.category
     }
 
-    // const url = qs.stringifyUrl(
-    //   {
-    //     url: "/",
-    //     query: updatedQuery,
-    //   },
-    //   { skipNull: true }
-    // )
+    const url = qs.stringifyUrl(
+      {
+        url: "/",
+        query: updatedQuery,
+      },
+      { skipNull: true }
+    )
 
-    // router.push(url)
+    router.push(url)
   }, [label, router, params])
 
   return (

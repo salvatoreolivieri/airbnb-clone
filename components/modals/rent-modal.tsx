@@ -1,8 +1,10 @@
 "use client"
 import axios from "axios"
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form"
+import { useRouter } from "next/navigation"
 
 import { useRentModal } from "@/store/use-rent-modal"
+import { useNotifications } from "@/hooks/use-notifications"
 import { categories } from "@/data/categories"
 
 import { useMemo, useState } from "react"
@@ -27,6 +29,9 @@ enum STEPS {
 
 export const RentModal = () => {
   const { isOpen, onClose: closeModal } = useRentModal()
+  const { addNotificationSuccess, addNotificationError } = useNotifications()
+  const router = useRouter()
+
   const [isLoading, setIsLoading] = useState(false)
 
   const [step, setStep] = useState(STEPS.CATEGORY)
@@ -64,7 +69,8 @@ export const RentModal = () => {
       dynamic(() => import("../map"), {
         ssr: false,
       }),
-    [location]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [location] // i
   )
 
   const setCustomValue = (id: string, value: any) =>
@@ -81,30 +87,22 @@ export const RentModal = () => {
     if (step !== STEPS.PRICE) return onNext()
 
     setIsLoading(true)
+
+    axios
+      .post("/api/listing", data)
+      .then(() => {
+        addNotificationSuccess("listingCreated")
+
+        router.refresh()
+        reset()
+        setStep(STEPS.CATEGORY)
+        closeModal()
+      })
+      .catch(() => addNotificationError("listingCreated"))
+      .finally(() => {
+        setIsLoading(false)
+      })
   }
-
-  // const onSubmit: SubmitHandler<FieldValues> = (data) => {
-  //   if (step !== STEPS.PRICE) {
-  //     return onNext();
-  //   }
-
-  //   setIsLoading(true);
-
-  //   axios.post('/api/listings', data)
-  //   .then(() => {
-  //     toast.success('Listing created!');
-  //     router.refresh();
-  //     reset();
-  //     setStep(STEPS.CATEGORY)
-  //     rentModal.onClose();
-  //   })
-  //   .catch(() => {
-  //     toast.error('Something went wrong.');
-  //   })
-  //   .finally(() => {
-  //     setIsLoading(false);
-  //   })
-  // }
 
   const actionLabel = useMemo(() => {
     if (step === STEPS.PRICE) return "Create"
@@ -209,9 +207,9 @@ export const RentModal = () => {
         />
 
         <ImageUpload
-          onChange={(value) => setCustomValue('imageSrc', value)}
+          onChange={(value) => setCustomValue("imageSrc", value)}
           value={imageSrc}
-        /> 
+        />
       </div>
     )
   }

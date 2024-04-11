@@ -14,6 +14,7 @@ import { Input } from "../inputs/input"
 import { CategoryInput } from "../inputs/category-input"
 import { CountrySelect } from "../inputs/country-select"
 import { Counter } from "../inputs/counter"
+import { ImageUpload } from "../inputs/image-upload"
 
 enum STEPS {
   CATEGORY = 0,
@@ -207,10 +208,10 @@ export const RentModal = () => {
           subtitle="Show guests what your place looks like!"
         />
 
-        {/* <ImageUpload
+        <ImageUpload
           onChange={(value) => setCustomValue('imageSrc', value)}
           value={imageSrc}
-        /> */}
+        /> 
       </div>
     )
   }

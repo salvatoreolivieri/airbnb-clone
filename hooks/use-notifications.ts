@@ -1,6 +1,12 @@
 import { toast } from "sonner"
 
-type NotificationType = "registered" | "login" | "logout" | "listingCreated"
+type NotificationType =
+  | "registered"
+  | "login"
+  | "logout"
+  | "listingCreated"
+  | "unfavorited"
+  | "favorited"
 
 type NotificationMessages = {
   [key in NotificationType]: {
@@ -25,6 +31,14 @@ const notificationMessages: NotificationMessages = {
   listingCreated: {
     success: "Listing Created!",
     error: "Failed to create listing",
+  },
+  favorited: {
+    success: "Added to favorites!",
+    error: "Failed to add to favorite listing",
+  },
+  unfavorited: {
+    success: "Removed from favorites!",
+    error: "Failed to unfavorite",
   },
 }
 

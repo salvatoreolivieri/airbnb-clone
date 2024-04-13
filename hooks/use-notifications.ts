@@ -7,6 +7,7 @@ type NotificationType =
   | "listingCreated"
   | "unfavorited"
   | "favorited"
+  | "dateReservation"
 
 type NotificationMessages = {
   [key in NotificationType]: {
@@ -39,6 +40,10 @@ const notificationMessages: NotificationMessages = {
   unfavorited: {
     success: "Removed from favorites!",
     error: "Failed to unfavorite",
+  },
+  dateReservation: {
+    success: "Reservation success",
+    error: "Reservation failed",
   },
 }
 

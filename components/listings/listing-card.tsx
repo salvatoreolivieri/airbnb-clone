@@ -1,7 +1,7 @@
 "use client"
 
 import { useCountries } from "@/hooks/use-countries"
-import { SafeUser } from "@/types"
+import { SafeListing, SafeUser } from "@/types"
 import { Reservation } from "@prisma/client"
 import { useRouter } from "next/navigation"
 import { useCallback, useMemo } from "react"
@@ -18,20 +18,7 @@ interface ListingCardProps {
   disabled?: boolean
   actionLabel?: string
   actionId?: string
-  data: {
-    id: string
-    title: string
-    description: string
-    imageSrc: string
-    createdAt: Date
-    category: string
-    roomCount: number
-    bathroomCount: number
-    guestCount: number
-    locationValue: string
-    userId: string
-    price: number
-  }
+  data: SafeListing
 }
 
 export const ListingCard = ({

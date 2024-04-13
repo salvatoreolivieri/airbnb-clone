@@ -32,11 +32,15 @@ export const useFavorite = ({ listingId, currentUser }: useFavorite) => {
         let request
 
         if (hasFavorited) {
-          request = () => axios.delete(`/api/favorites/${listingId}`)
-          addNotificationSuccess("unfavorited")
+          request = () =>
+            axios
+              .delete(`/api/favorites/${listingId}`)
+              .finally(() => addNotificationSuccess("unfavorited"))
         } else {
-          request = () => axios.post(`/api/favorites/${listingId}`)
-          addNotificationSuccess("favorited")
+          request = () =>
+            axios
+              .post(`/api/favorites/${listingId}`)
+              .finally(() => addNotificationSuccess("favorited"))
         }
 
         await request()

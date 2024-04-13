@@ -38,7 +38,44 @@ export const getListings = async () => {
       },
     })
 
-    return listings
+    return listings.map((listing) => ({
+      ...listing,
+      createdAt: listing.createdAt.toISOString(),
+    }))
+  } catch (error: any) {
+    throw new Error(error)
+  }
+}
+
+export const getListingById = async (params: { id?: string }) => {
+  try {
+    const { id } = params
+
+    if (!id) {
+      throw new Error("ID is required to fetch a listing.")
+    }
+
+    const listing = await prisma.listing.findUnique({
+      where: {
+        id,
+      },
+      include: {
+        user: true,
+      },
+    })
+
+    if (!listing) return null
+
+    return {
+      ...listing,
+      createdAt: listing.createdAt.toISOString(),
+      user: {
+        ...listing.user,
+        createdAt: listing.user.createdAt.toISOString(),
+        updatedAt: listing.user.updatedAt.toISOString(),
+        emailVerified: listing.user.emailVerified?.toISOString() || null,
+      },
+    }
   } catch (error: any) {
     throw new Error(error)
   }

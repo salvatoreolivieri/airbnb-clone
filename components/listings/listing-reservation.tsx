@@ -42,7 +42,7 @@ export const ListingReservation = ({
         <hr />
 
         <div className="p-4">
-          <Button disabled={disabled} label="reserve" onClick={onSubmit} />
+          <Button disabled={disabled} label="Reserve" onClick={onSubmit} />
         </div>
 
         <hr />

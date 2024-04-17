@@ -1,5 +1,5 @@
 import { EmptyState } from "@/components/empty-state"
-import { getCurrentUser, getListingById } from "@/lib/utils"
+import { getCurrentUser, getListingById, getReservations } from "@/lib/utils"
 import { ListingPage } from "./listing-page"
 
 export default async function ListinPage({
@@ -10,6 +10,7 @@ export default async function ListinPage({
   }
 }) {
   const page = await getListingById(params)
+  const reservations = await getReservations(params)
   const currentUser = await getCurrentUser()
 
   if (!page) {
@@ -18,7 +19,11 @@ export default async function ListinPage({
 
   return (
     <>
-      <ListingPage data={page} currentUser={currentUser} />
+      <ListingPage
+        data={page}
+        currentUser={currentUser}
+        reservations={reservations}
+      />
     </>
   )
 }

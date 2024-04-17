@@ -6,8 +6,7 @@ import { ListingHead } from "@/components/listings/listing-head"
 import { ListingInfo } from "@/components/listings/listing-info"
 import { categories } from "@/data/categories"
 import { useLoginModal } from "@/store/use-login-modal"
-import { SafeListing, SafeUser } from "@/types"
-import { Reservation } from "@prisma/client"
+import { SafeListing, SafeReservation, SafeUser } from "@/types"
 import { differenceInCalendarDays, eachDayOfInterval } from "date-fns"
 import { useRouter } from "next/navigation"
 import { useCallback, useEffect, useMemo, useState } from "react"
@@ -22,7 +21,7 @@ const initialDateRange = {
 }
 
 interface ListingPageProps {
-  reservations?: Reservation[]
+  reservations?: SafeReservation[]
   data: SafeListing & {
     user: SafeUser
   }
@@ -71,6 +70,7 @@ export const ListingPage = ({
       })
       .then(() => {
         addNotificationSuccess("dateReservation")
+
         setDateRange(initialDateRange)
 
         // Redirect to trips:
@@ -137,7 +137,10 @@ export const ListingPage = ({
                   price={data.price}
                   totalPrice={totalPrice}
                   dateRange={dateRange}
-                  onChangeDate={(value) => setDateRange(value)}
+                  onChangeDate={(value) => {
+                    console.log("setDateRange: ", value)
+                    setDateRange(value)
+                  }}
                   onSubmit={onCreateReservation}
                   disabled={isLoading}
                   disabledDates={disabledDates}

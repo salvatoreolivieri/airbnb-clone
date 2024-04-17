@@ -3,6 +3,14 @@ import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/pages/api/auth/[...nextauth]"
 import prisma from "./prismadb"
 
+interface IParams {
+  id?: string
+  userId?: string
+  authorId?: string
+}
+
+type valueof<T> = T[keyof T]
+
 const getSession = async () => await getServerSession(authOptions)
 
 export const getCurrentUser = async () => {
@@ -76,6 +84,53 @@ export const getListingById = async (params: { id?: string }) => {
         emailVerified: listing.user.emailVerified?.toISOString() || null,
       },
     }
+  } catch (error: any) {
+    throw new Error(error)
+  }
+}
+
+export const getReservations = async (params: IParams) => {
+  try {
+    const { id, userId, authorId } = params
+
+    const query: any = {}
+
+    if (id) {
+      query.id = id
+    }
+
+    if (userId) {
+      query.userId = userId
+    }
+
+    if (authorId) {
+      query.listing = {
+        userId: authorId,
+      }
+    }
+
+    const reservations = await prisma.reservation.findMany({
+      where: query,
+      include: {
+        listing: true,
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    })
+
+    const safeReservations = reservations.map((reservation) => ({
+      ...reservation,
+      createdAt: reservation.createdAt.toISOString(),
+      startDate: reservation.startDate.toISOString(),
+      endDate: reservation.endDate.toISOString(),
+      listing: {
+        ...reservation.listing,
+        createdAt: reservation.listing.createdAt.toISOString(),
+      },
+    }))
+
+    return safeReservations
   } catch (error: any) {
     throw new Error(error)
   }

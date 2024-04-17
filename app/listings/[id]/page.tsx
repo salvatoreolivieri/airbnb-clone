@@ -2,7 +2,7 @@ import { EmptyState } from "@/components/empty-state"
 import { getCurrentUser, getListingById, getReservations } from "@/lib/utils"
 import { ListingPage } from "./listing-page"
 
-export default async function ListinPage({
+export default async function Listing({
   params,
 }: {
   params: {

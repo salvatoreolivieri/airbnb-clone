@@ -5,9 +5,7 @@ import { getCurrentUser } from "@/lib/utils"
 export async function POST(request: Request) {
   const currentUser = await getCurrentUser()
 
-  if (!currentUser) {
-    return new NextResponse("Unauthorized", { status: 401 })
-  }
+  if (!currentUser) return new NextResponse("Unauthorized", { status: 401 })
 
   const body = await request.json()
   const { listingId, startDate, endDate, totalPrice } = body

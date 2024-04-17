@@ -2,22 +2,26 @@
 
 import axios from "axios"
 
-import { Container } from "@/components/container"
-import { Heading } from "@/components/heading"
+import { useCallback, useState } from "react"
+
+import { useRouter } from "next/navigation"
+import { useNotifications } from "@/hooks/use-notifications"
 
 import { SafeReservation, SafeUser } from "@/types"
 
-import { useRouter } from "next/navigation"
-import { useCallback, useState } from "react"
-import { useNotifications } from "@/hooks/use-notifications"
+import { Container } from "@/components/container"
+import { Heading } from "@/components/heading"
 import { ListingCard } from "@/components/listings/listing-card"
 
-interface TripPageProps {
+interface ReservationPageProps {
   reservations: SafeReservation[]
   currentUser?: SafeUser | null
 }
 
-export const TripPage = ({ reservations, currentUser }: TripPageProps) => {
+export const ReservationPage = ({
+  reservations,
+  currentUser,
+}: ReservationPageProps) => {
   const router = useRouter()
   const { addNotificationSuccess, addNotificationError } = useNotifications()
 
@@ -42,10 +46,7 @@ export const TripPage = ({ reservations, currentUser }: TripPageProps) => {
   return (
     <>
       <Container>
-        <Heading
-          title="Trips"
-          subtitle="Where you've been and where you are going"
-        />
+        <Heading title="Reservations" subtitle="Booking on your properties" />
 
         <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6 gap-8">
           {reservations.map((reservation) => (
@@ -56,7 +57,7 @@ export const TripPage = ({ reservations, currentUser }: TripPageProps) => {
               actionId={reservation.id}
               onAction={onCancel}
               disabled={deletingId === reservation.id}
-              actionLabel="Cancel reservation"
+              actionLabel="Cancel guest reservation"
               currentUser={currentUser}
             />
           ))}

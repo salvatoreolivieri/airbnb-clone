@@ -138,10 +138,7 @@ export const ListingPage = ({
                   price={data.price}
                   totalPrice={totalPrice}
                   dateRange={dateRange}
-                  onChangeDate={(value) => {
-                    console.log("setDateRange: ", value)
-                    setDateRange(value)
-                  }}
+                  onChangeDate={(value) => setDateRange(value)}
                   onSubmit={onCreateReservation}
                   disabled={isLoading}
                   disabledDates={disabledDates}

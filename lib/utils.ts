@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth/next"
 import { authOptions } from "@/pages/api/auth/[...nextauth]"
 import prisma from "./prismadb"
 
-interface IParams {
+export interface IParams {
   id?: string
   userId?: string
   authorId?: string
@@ -38,9 +38,18 @@ export const getCurrentUser = async () => {
   }
 }
 
-export const getListings = async () => {
+export const getListings = async (params: IParams) => {
   try {
+    const { userId } = params
+
+    let query: any = {}
+
+    if (userId) {
+      query.userId = userId
+    }
+
     const listings = await prisma.listing.findMany({
+      where: query,
       orderBy: {
         createdAt: "desc",
       },

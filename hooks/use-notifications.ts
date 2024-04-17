@@ -9,6 +9,7 @@ type NotificationType =
   | "favorited"
   | "dateReservation"
   | "deleteReservation"
+  | "deleteProperty"
 
 type NotificationMessages = {
   [key in NotificationType]: {
@@ -49,6 +50,10 @@ const notificationMessages: NotificationMessages = {
   deleteReservation: {
     success: "Reservation cancelled",
     error: "Can't cancel reservation, contact the bnb",
+  },
+  deleteProperty: {
+    success: "Property cancelled",
+    error: "Can't cancel property, contact Airbnb support",
   },
 }
 

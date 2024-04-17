@@ -1,10 +1,14 @@
 import { Container } from "@/components/container"
 import { EmptyState } from "@/components/empty-state"
 import { ListingCard } from "@/components/listings/listing-card"
-import { getListings, getCurrentUser } from "@/lib/utils"
+import { getListings, getCurrentUser, type IParams } from "@/lib/utils"
 
-export default async function Home() {
-  const listings = await getListings()
+interface HomeProps {
+  searchParams: IParams
+}
+
+export default async function Home({ searchParams }: HomeProps) {
+  const listings = await getListings(searchParams)
   const currentUser = await getCurrentUser()
 
   if (!listings.length) {

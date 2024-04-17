@@ -96,7 +96,7 @@ export const getReservations = async (params: IParams) => {
     const query: any = {}
 
     if (id) {
-      query.id = id
+      query.listingId = id
     }
 
     if (userId) {
@@ -119,7 +119,7 @@ export const getReservations = async (params: IParams) => {
       },
     })
 
-    const safeReservations = reservations.map((reservation) => ({
+    return reservations.map((reservation) => ({
       ...reservation,
       createdAt: reservation.createdAt.toISOString(),
       startDate: reservation.startDate.toISOString(),
@@ -129,8 +129,6 @@ export const getReservations = async (params: IParams) => {
         createdAt: reservation.listing.createdAt.toISOString(),
       },
     }))
-
-    return safeReservations
   } catch (error: any) {
     throw new Error(error)
   }

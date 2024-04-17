@@ -74,7 +74,7 @@ export const ListingPage = ({
         setDateRange(initialDateRange)
 
         // Redirect to trips:
-        // router.push("/trips")
+        router.push("/trips")
       })
       .catch(() => addNotificationError("dateReservation"))
       .finally(() => setIsLoading(false))
@@ -86,6 +86,7 @@ export const ListingPage = ({
     dateRange,
     addNotificationSuccess,
     addNotificationError,
+    router,
   ])
 
   useEffect(() => {

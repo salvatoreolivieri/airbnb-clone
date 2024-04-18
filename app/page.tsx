@@ -14,6 +14,7 @@ export default async function Home({ searchParams }: HomeProps) {
   if (!listings.length) {
     return <EmptyState showReset />
   }
+
   return (
     <>
       <Container>

@@ -14,7 +14,7 @@ import { useNotifications } from "@/hooks/use-notifications"
 import { ListingReservation } from "@/components/listings/listing-reservation"
 import { Range } from "react-date-range"
 
-const initialDateRange = {
+export const initialDateRange = {
   startDate: new Date(),
   endDate: new Date(),
   key: "selection",

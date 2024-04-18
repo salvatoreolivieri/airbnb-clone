@@ -70,7 +70,7 @@ export const RentModal = () => {
         ssr: false,
       }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [location] // i
+    [location]
   )
 
   const setCustomValue = (id: string, value: any) =>

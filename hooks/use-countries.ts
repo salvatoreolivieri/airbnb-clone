@@ -8,8 +8,13 @@ const formattedCountries = countries.map((country) => ({
   region: country.region,
 }))
 
-export type CountrySelectValue = typeof formattedCountries
-
+export type CountrySelectValue = {
+  value: string
+  label: string
+  flag: number
+  latlng: number[]
+  region: string
+}
 
 export const useCountries = () => {
   const getAll = () => formattedCountries

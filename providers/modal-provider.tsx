@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { Suspense, useEffect, useState } from "react"
 
 import { RegisterModal } from "@/components/modals/register-modal"
 import { LoginModal } from "@/components/modals/login-modal"
@@ -21,8 +21,13 @@ export const ModalProvider = () => {
   return (
     <>
       <RegisterModal />
+
       <LoginModal />
-      <SearchModal />
+
+      <Suspense>
+        <SearchModal />
+      </Suspense>
+
       <RentModal />
     </>
   )

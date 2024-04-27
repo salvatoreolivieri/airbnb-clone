@@ -28,13 +28,12 @@ export const Categories = () => {
         "
         >
           {categories.map((item) => (
-            <Suspense key={item.label}>
-              <CategoryBox
-                label={item.label}
-                icon={item.icon}
-                selected={category === item.label}
-              />
-            </Suspense>
+            <CategoryBox
+              key={item.label}
+              label={item.label}
+              icon={item.icon}
+              selected={category === item.label}
+            />
           ))}
         </div>
       </Container>

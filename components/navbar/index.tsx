@@ -7,6 +7,7 @@ import { Logo } from "./logo"
 import { Categories } from "./categories"
 import { Search } from "./search"
 import { UserMenu } from "./user-menu"
+import { Suspense } from "react"
 
 interface NavbarProps {
   currentUser?: SafeUser | null
@@ -22,13 +23,19 @@ export const Navbar = ({ currentUser }: NavbarProps) => {
           <Container>
             <div className="flex flex-row items-center justify-between gap-3 md:gap-0">
               <Logo />
-              <Search />
+
+              <Suspense>
+                <Search />
+              </Suspense>
+
               <UserMenu currentUser={currentUser} />
             </div>
           </Container>
         </div>
 
-        <Categories />
+        <Suspense>
+          <Categories />
+        </Suspense>
       </div>
     </>
   )

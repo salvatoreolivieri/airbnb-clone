@@ -3,7 +3,7 @@ import { FavoritesPage } from "./favorites-page"
 import { EmptyState } from "@/components/empty-state"
 import { getCurrentUser, getFavoritesListing } from "@/lib/utils"
 
-export default async function Favorites() {
+const Favorites = async () => {
   const currentUser = await getCurrentUser()
   const favoritesItems = await getFavoritesListing()
 
@@ -22,3 +22,5 @@ export default async function Favorites() {
     </>
   )
 }
+
+export default Favorites

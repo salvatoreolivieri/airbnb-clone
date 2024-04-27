@@ -2,7 +2,7 @@ import { EmptyState } from "@/components/empty-state"
 import { getCurrentUser, getListings } from "@/lib/utils"
 import { PropertiesPage } from "./properties-page"
 
-export default async function PropertiessPage() {
+const PropertiessPage = async () => {
   const currentUser = await getCurrentUser()
 
   if (!currentUser) {
@@ -28,3 +28,5 @@ export default async function PropertiessPage() {
     </>
   )
 }
+
+export default PropertiessPage

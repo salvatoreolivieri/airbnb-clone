@@ -2,7 +2,7 @@ import { EmptyState } from "@/components/empty-state"
 import { getCurrentUser, getReservations } from "@/lib/utils"
 import { ReservationPage } from "./reservation-page"
 
-export default async function Reservations() {
+const Reservations = async () => {
   const currentUser = await getCurrentUser()
 
   if (!currentUser) {
@@ -28,3 +28,5 @@ export default async function Reservations() {
     </>
   )
 }
+
+export default Reservations

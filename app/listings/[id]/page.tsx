@@ -2,13 +2,13 @@ import { EmptyState } from "@/components/empty-state"
 import { getCurrentUser, getListingById, getReservations } from "@/lib/utils"
 import { ListingPage } from "./listing-page"
 
-export default async function Listing({
+const Listing = async ({
   params,
 }: {
   params: {
     id?: string
   }
-}) {
+}) => {
   const page = await getListingById(params)
   const reservations = await getReservations(params)
   const currentUser = await getCurrentUser()
@@ -27,3 +27,5 @@ export default async function Listing({
     </>
   )
 }
+
+export default Listing

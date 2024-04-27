@@ -4,6 +4,7 @@ import { categories } from "@/data/categories"
 import { Container } from "../container"
 import { CategoryBox } from "../category-box"
 import { usePathname, useSearchParams } from "next/navigation"
+import { Suspense } from "react"
 
 export const Categories = () => {
   const params = useSearchParams()
@@ -27,12 +28,13 @@ export const Categories = () => {
         "
         >
           {categories.map((item) => (
-            <CategoryBox
-              key={item.label}
-              label={item.label}
-              icon={item.icon}
-              selected={category === item.label}
-            />
+            <Suspense key={item.label}>
+              <CategoryBox
+                label={item.label}
+                icon={item.icon}
+                selected={category === item.label}
+              />
+            </Suspense>
           ))}
         </div>
       </Container>
